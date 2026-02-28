@@ -12,7 +12,7 @@ export class AuthController {
         const result = await this.authService.login(body.email, body.password);
         return {
             status: true,
-            message: "Login success",
+            message: "Login successes",
             ...result
         };
     }
