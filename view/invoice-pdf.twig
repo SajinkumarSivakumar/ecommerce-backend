@@ -1,0 +1,189 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .invoice-box {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: 24px;
+            text-align: left;
+            border-collapse: collapse;
+            border: 1px solid #ddd; /* Add border for the entire table */
+        }
+
+        .invoice-box table td,
+        .invoice-box table th {
+            padding: 8px;
+            vertical-align: top;
+            border: 1px solid #ddd; /* Add border for each cell */
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top td {
+            padding-bottom: 20px;
+            text-align: center; /* Center-align the top section */
+        }
+
+        .invoice-box table tr.top td.title {
+            font-size: 35px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information td {
+            padding-bottom: 40px;
+            text-align: center; /* Center-align the information section */
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+            text-align: right; /* Align total values to the right */
+        }
+
+        .align-right {
+            text-align: right;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #666;
+            text-align: left; /* Align footer to the left */
+            margin-top: 40px;
+            width: 100%; /* Ensure the footer takes full width */
+        }
+
+        .description {
+            width: 100%;
+            word-wrap: break-word;
+        }
+
+        .invoice-title {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .generated-note {
+            font-size: 12px; /* Adjust font size as needed */
+            color: #999; /* Use a lighter color for the note */
+            text-align: center; /* Center the note */
+            margin-top: 20px; /* Add some margin for spacing */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+        <table>
+            <tr class="top">
+                <td colspan="5">
+                    <table width="100%">
+                        <tr>
+                            <td class="title" style="text-align: center;">
+                                <img src="https://i.ibb.co/TbCsL6T/apt.png" alt="Company logo" style="max-width: 500px;">
+                            </td>
+
+                            <td class="align-right">
+                                <strong>APT COACH PTE LTD</strong><br>
+                                31 Elias Road #08-24 Ris Grandeur Singapore 519934<br>
+                                Hp: 9048 0084 / 9878 9907 Fax: 6260 0125<br>
+                                Website: http://www.aptransport.com.sg<br>
+                                Email: Sales@aptransport.com.sg<br>
+                                GST Registration Number: 201625268R
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="5">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <strong>Date:</strong> 01-Oct-2024<br>
+                                <strong>TO:</strong> Koh Bus Transport Service Pte Ltd<br>
+                                Singapore
+                            </td>
+                            <td class="align-right">
+                                <strong>Invoice No:</strong> {{ details[0].invoice_no }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Order</th>
+                    <th>Time</th>
+                    <th>Bus Type</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, item in details %}
+                    <tr>
+                        <td>{{ item.invoiceDate }}</td>
+                        <td>sub</td>
+                        <td>{{ item.departureTime }}/{{ item.destinationTime }}</td>
+                        <td>{{ item.bus_type }}</td>
+                        <td>3 Sakara Rd - 10 Dempsey Rd</td> <!-- Assuming you have a description field -->
+                        <td>${{ item.totalAmount }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: right;"><strong>GST Amount:</strong></td>
+                    <td style="text-align: left;"><strong>${{ details[0].gstAmount }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="text-align: right;"><strong>Total Amount:</strong></td>
+                    <td style="text-align: left;"><strong>${{ details[0].finalAmount }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="generated-note">
+            This is a computer-generated letter. No signature is required.
+        </div>
+
+
+    </div>
+</body>
