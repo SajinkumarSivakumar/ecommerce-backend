@@ -9,12 +9,14 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import entities from './entities/entity';
 import {AuthModule} from "./auth/auth.module";
+import {MasterModule} from "./master/master.module";
+
 
 
 @Module({
   imports: [
 
-    AuthModule,
+
 
     ConfigModule.forRoot({
       isGlobal: true,
@@ -43,6 +45,8 @@ import {AuthModule} from "./auth/auth.module";
       serveRoot: '/uploads/',
     }),
 
+    AuthModule,
+    MasterModule,
 
 
   ],
