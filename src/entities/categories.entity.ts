@@ -24,6 +24,9 @@ export class Category {
     @Column({ name: 'category', type: 'varchar', length: 100, default: '0' })
     category: string;
 
+    @Column({ name: 'description', type: 'varchar', length: 100, default: '0' })
+    description: string;
+
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 

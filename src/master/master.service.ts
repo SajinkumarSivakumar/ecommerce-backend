@@ -16,14 +16,16 @@ export class MasterService {
 
 
     async getUploadFiles(file: any, data: any) {
-         console.log('kkkk',data)
+
         try{
             const saveUpload ={
                 fileName: file.filename,
                 fileSize:file.size,
                 category:data.type,
+                description:data.text,
                 fileType:file.mimetype
             }
+
 
             await this.categoryRepository.save(saveUpload);
 
